@@ -18,7 +18,10 @@ for line in vfile:
     localPort.append(columns[1])
     remoteIP.append(columns[2])
     remotePort.append(columns[3])
-    print remotePort[x]
+    ## Notice in the next line that how to connect strings with the plus
+    ## but not to include the whole line as one string, as that throws
+    ## off the command thinking that the entire string is one argument
+
     subprocess.Popen(['/bin/ssh', '-f', '-N', tunnelUser+"@"+localIP[x],\
         '-R', localPort[x]+":"+remoteIP[x]+":"+remotePort[x].strip()])
     x=x+1
