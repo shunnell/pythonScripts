@@ -3,15 +3,15 @@
 import sys
 
 if len(sys.argv) < 2:
-    print "You must enter the PUE number!"
+    print("You must enter the PUE number!")
     sys.exit(128)
 
 pue = str(sys.argv[1])
 pue_ip = "192.168.24."+str((int(pue) + 100))
 pue_hostname = "ifdcgsppupwks"+pue+".boilermaker.gar.us.ray.com"
 
-print "Using hostname: "+pue_hostname
-print "Using ip address: "+pue_ip
+print("Using hostname: "+pue_hostname)
+print("Using ip address: "+pue_ip)
 
 part1 = ""
 part2 = ""
