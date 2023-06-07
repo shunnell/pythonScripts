@@ -1,4 +1,4 @@
-#!/bin/python
+#!/bin/python3
 
 import sys
 import subprocess
@@ -15,7 +15,7 @@ saturday = []
 count = 0
 num = 0
 
-vfile=open('/home/shunnel/development/scripts/cal-data','rt')
+vfile=open('cal-data','rt')
 for line in vfile:
    sunday.append(line[num:num + 2])
    num += 3
@@ -34,6 +34,6 @@ for line in vfile:
    if count > 0:
       if tuesday[count] != "  ":
          if tuesday[count] != "":
-            print tuesday[count]
+            print(tuesday[count])
    count += 1
 sys.stdout.close()
