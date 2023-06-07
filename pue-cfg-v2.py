@@ -1,1 +1,52 @@
+#!/bin/python
+
+import sys
+import argparse
+
+def pue_config(pue)
+#     pue = str(sys.argv[1])
+    pue_ip = "192.168.24."+str((int(pue) + 100))
+    pue_hostname = "ifdcgsppupwks"+pue+".boilermaker.gar.us.ray.com"
+
+    print("Using hostname: "+pue_hostname)
+    print("Using ip address: "+pue_ip)
+
+    part1 = ""
+    part2 = ""
+    part3 = ""
+
+    vfile=open('pue_rhel7.cfg','rt')
+    newfile=open("pue_"+pue+".cfg", "w")
+    #vfile=open('/var/www/html/ks/pue_rhel7.cfg','rt')
+    #newfile=open('/var/www/html/ks/pue_"+pue+".cfg', 'a')
+    network_ip = True
+    for line in vfile:
+    # Left all commented code below this code block because
+    # I didn't have time to test, but assuming this is right
+    if line[0:7] == "network" and network_ip == True:
+        columns = line.split(' ')
+        part1 = columns[0] + " " + columns[2] + " " + columns[3]
+        # skipped columns[1] because of double-space
+        # after the first network column
+        part2 = columns[4] + " " + "--ip=" + pue_ip + " " + columns[6]
+        part3 = columns[7] + " " + columns[8] + " " + columns[9]
+        mod_line = part1 + " " + part2 + " " + part3
+        network_ip = False
+    else
+        columns = line.split(' ')
+        part1 = columns[0]
+        part2 = "--hostname=" + pue_hostname
+        mod_line = part1 + " " + part2
+    newfile.writelines(mod_line)
+    vfile.close()
+    newfile.close()
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='PUE Configurator')
+    parser.add_argument('-p', '--pue', action="store", default = False, dest="pue", help="Should be the last octet the PUE's IP adddress")
+    # eventually, change the preceeding to accept the entire file name, so you can just start typing the 
+    # pue and hit tab-complete
+    values = parser.parse_args()
+
+pue_config(values.pue)
 
