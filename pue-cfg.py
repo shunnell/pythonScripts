@@ -23,6 +23,8 @@ newfile=open("pue_"+pue+".cfg", "w")
 #newfile=open('/var/www/html/ks/pue_"+pue+".cfg', 'a')
 network_ip = True
 for line in vfile:
+    # Left all commented code below this code block because
+    # I didn't have time to test, but assuming this is right
     if line[0:7] == "network" and network_ip == True:
         columns = line.split(' ')
         part1 = columns[0] + " " + columns[2] + " " + columns[3]
@@ -31,16 +33,32 @@ for line in vfile:
         part2 = columns[4] + " " + "--ip=" + pue_ip + " " + columns[6]
         part3 = columns[7] + " " + columns[8] + " " + columns[9]
         mod_line = part1 + " " + part2 + " " + part3
-        newfile.writelines(mod_line)
         network_ip = False
-    elif line[0:7] == "network" and network_ip == False:
+    else
         columns = line.split(' ')
         part1 = columns[0]
         part2 = "--hostname=" + pue_hostname
         mod_line = part1 + " " + part2
-        newfile.writelines(mod_line)
-    else:
-        newfile.writelines(line)
+    newfile.writelines(mod_line)
+
+#     if line[0:7] == "network" and network_ip == True:
+#         columns = line.split(' ')
+#         part1 = columns[0] + " " + columns[2] + " " + columns[3]
+#             # skipped columns[1] because of double-space
+#             # after the first network column
+#         part2 = columns[4] + " " + "--ip=" + pue_ip + " " + columns[6]
+#         part3 = columns[7] + " " + columns[8] + " " + columns[9]
+#         mod_line = part1 + " " + part2 + " " + part3
+#         newfile.writelines(mod_line)
+#         network_ip = False
+#     elif line[0:7] == "network" and network_ip == False:
+#         columns = line.split(' ')
+#         part1 = columns[0]
+#         part2 = "--hostname=" + pue_hostname
+#         mod_line = part1 + " " + part2
+#         newfile.writelines(mod_line)
+#     else:
+#         newfile.writelines(line)
 vfile.close()
 newfile.close()
 
